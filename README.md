@@ -19,10 +19,10 @@ Ensure Correctness: Prevent hash collisions with order-sensitive combining.
 Install the package via NuGet:
 
 # Using the .NET CLI
-dotnet add package ModernBCL.Core.BLC --version 1.1.0
+dotnet add package ModernBCL.Core.BLC --version 1.1.1
 
 # Using Package Manager Console (in Visual Studio)
-Install-Package ModernBCL.Core.BLC -Version 1.1.0
+Install-Package ModernBCL.Core.BLC -Version 1.1.1
 
 
 Compatibility: This package targets .NET Framework 4.8.1 (compatible with 4.8+) and is designed to coexist with modern .NET applications.
