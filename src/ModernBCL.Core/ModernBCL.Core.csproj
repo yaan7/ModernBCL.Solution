@@ -1,0 +1,54 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+	<PropertyGroup>
+		<!-- 
+    The Sdk="Microsoft.NET.Sdk" attribute above automatically handles 
+    references, file includes, and the 'pack' target, fixing the MSB4057 error.
+    -->
+
+		<!-- Targeting .NET Framework 4.8.1 (the latest legacy framework version) -->
+		<TargetFramework>net481</TargetFramework>
+
+		<!-- Standard build properties -->
+		<LangVersion>9.0</LangVersion>
+		<Nullable>enable</Nullable>
+		<Deterministic>true</Deterministic>
+		<RootNamespace>ModernBCL.Core</RootNamespace>
+		<AssemblyName>ModernBCL.Core</AssemblyName>
+
+		<!-- FIX: Disable automatic AssemblyInfo generation to prevent CS0579 duplicate attribute errors. -->
+		<GenerateAssemblyInfo>false</GenerateAssemblyInfo>
+
+		<!-- === NuGet Package Information === -->
+		<PackageId>ModernBCL.Core.BLC</PackageId>
+		<Version>1.1.0</Version>
+		<Authors>livedcode</Authors>
+		<AssemblyVersion>1.1.0.0</AssemblyVersion>
+		<FileVersion>1.1.0.0</FileVersion>
+		<Description>
+			A high-performance, order-sensitive polyfill for System.HashCode, enabling modern C# dictionary key efficiency in legacy .NET Framework applications.
+			This package is part of the ModernBCL.Core effort to bridge feature gaps.
+		</Description>
+		<RepositoryUrl>https://github.com/livedcode/ModernBCL.Core.HashCode</RepositoryUrl>
+		<PackageTags>dotnet; net48; polyfill; hashcode; performance; bcl; dictionary; csharp; hashing; low-allocation</PackageTags>
+		<RepositoryType>git</RepositoryType>
+		<PackageLicenseExpression>MIT</PackageLicenseExpression>
+
+		<!-- Links to files in the repository root (../..) -->
+		<PackageReadmeFile>README.md</PackageReadmeFile>
+
+		<!-- Mandatory for publishing symbol files -->
+		<PublishRepositoryUrl>true</PublishRepositoryUrl>
+		<EmbedAllSources>true</EmbedAllSources>
+
+		<!-- Ensure the project creates a NuGet package on build -->
+		<GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+	</PropertyGroup>
+
+	<ItemGroup>
+		<!-- Includes the README.md and LICENSE files from the repository root (../..) -->
+		<None Include="..\..\README.md" Pack="true" PackagePath="\" />
+		<None Include="..\..\LICENSE" Pack="true" PackagePath="\" />
+	</ItemGroup>
+
+</Project>
