@@ -1,39 +1,81 @@
-﻿ ModernBCL.Core.BLC
+# 📘 ModernBCL.Core.BLC  
+**Modern Polyfills for Legacy .NET Framework 4.8 / 4.8.1**
 
-Polyfills for Legacy .NET Framework 4.8
+ModernBCL.Core.BLC brings high-performance, zero-allocation replacements for missing modern BCL APIs to legacy .NET Framework apps — enabling performance and clarity normally available only in .NET 7/8.
 
-This library provides high-performance, zero-allocation polyfills for modern .NET features, enabling cleaner code and better performance in legacy .NET Framework applications (targeting net481).
+This library is especially useful for:
 
-🎯 Project Goal
+- Enterprise systems that must stay on **.NET Framework 4.8 / 4.8.1**
+- Developers wanting **modern C# coding patterns** on legacy frameworks
+- Teams needing **high-quality hashing** or **safe guard clauses**
+- Projects migrating from .NET Framework → .NET Core but needing parity
 
-The primary goal is to close critical feature gaps in .NET 4.8. By providing modern BCL (Base Class Library) types, developers maintaining large enterprise applications can:
+---
 
-Improve Performance: Use non-allocating hash generation (System.HashCode).
+# 🎯 **Project Goals**
 
-Modernize Code Style: Use concise guard clauses (ThrowHelper) instead of verbose null checks.
+### ModernBCL.Core.BLC provides:
 
-Ensure Correctness: Prevent hash collisions with order-sensitive combining.
+### ✔ **High-performance hashing**
+- Drop-in **System.HashCode** polyfill (for .NET Framework only)
+- Modern, order-sensitive `HashCode.Combine()`
+- `HashAccumulator` (32-bit) and `HashAccumulator64` (64-bit)
+- Extremely low collision rates
+- Zero allocations
 
-🚀 Installation
+### ✔ **Modern guard clauses**
+- Clean replacement for repetitive null/empty/whitespace checks
+- Fluent `Guard.Against()` API
+- Polyfilled `[CallerArgumentExpression]` attribute
+- No need to manually pass parameter names
 
-Install the package via NuGet:
+### ✔ **Cleaner code, safer APIs**
+- Modern BCL patterns for older frameworks
+- Full parity with .NET 6/7/8 guard & hashing behavior (where appropriate)
 
-# Using the .NET CLI
-dotnet add package ModernBCL.Core.BLC --version 1.1.1
+---
 
-# Using Package Manager Console (in Visual Studio)
-Install-Package ModernBCL.Core.BLC -Version 1.1.1
+# 🚀 **Installation**
 
+Install via NuGet:
 
-Compatibility: This package targets .NET Framework 4.8.1 (compatible with 4.8+) and is designed to coexist with modern .NET applications.
+**.NET CLI**
 
-💻 Usage Examples
+```bash
+dotnet add package ModernBCL.Core.BLC --version 1.2.0
+```
 
-1. High-Performance Hash Codes
+**Visual Studio Package Manager Console**
 
-Replace complex, manual prime-number math with the clean, static HashCode.Combine API.
+```powershell
+Install-Package ModernBCL.Core.BLC -Version 1.2.0
+```
 
-using System; // HashCode is in the System namespace
+---
+
+# 📦 **Compatibility**
+
+| Target | Status | Notes |
+|--------|--------|--------|
+| **.NET Framework 4.8 / 4.8.1** | ✔ Supported | HashCode polyfill is active |
+| **.NET 8+ / .NET Core** | ✔ Supported | Uses *native* System.HashCode (polyfill disabled) |
+| **NuGet Package** | ✔ Multi-target | `net48; net481; net8.0` |
+
+ModernBCL intelligently switches behavior:
+
+- Under **net48/net481** → uses **ModernBCL HashCode polyfill**
+- Under **net8+** → uses **native framework HashCode**
+
+---
+
+# 💻 Usage Examples
+
+---
+
+## 1. ⚡ **High-Performance Hash Codes**
+
+```csharp
+using System;
 
 public class ProductKey
 {
@@ -41,61 +83,82 @@ public class ProductKey
     public string Color { get; }
     public int Size { get; }
 
-    // ... Constructor and Equals implementation ...
-
     public override int GetHashCode()
     {
-        // Combines up to 8 values.
-        // This is non-allocating, order-sensitive, and cryptographically robust for dictionaries.
-        return HashCode.Combine(ProductId, Color, Size); 
+        return HashCode.Combine(ProductId, Color, Size);
     }
 }
+```
 
+---
 
-2. Modern Argument Validation (Guard Clauses)
+## 2. 🔐 **Modern Guard Clauses**
 
-Simplify your constructor and method validation logic using ThrowHelper.
-
-using ModernBCL.Core; // Namespace for ThrowHelper
+```csharp
+using ModernBCL.Core.Guards;
 
 public class DependencyContainer
 {
-    private readonly object _service;
-    private readonly string _clientName;
-
     public DependencyContainer(object service, string clientName)
     {
-        // Old .NET 4.8 way:
-        // if (service == null) throw new ArgumentNullException(nameof(service));
-
-        // ModernBCL way (Parameter name is automatically captured):
-        _service = ThrowHelper.ThrowIfNull(service);
-        
-        // Validate strings (null, empty, or whitespace):
-        _clientName = ThrowHelper.ThrowIfNullOrWhiteSpace(clientName);
+        _service = Guard.Against(service).Null();
+        _clientName = Guard.Against(clientName).NullOrWhiteSpace();
     }
 }
+```
 
+---
 
-⚙️ How It Works
+# ⚙️ **How It Works**
 
-System.HashCode: Implements a standard mixing algorithm using two internal accumulators with distinct bit-rotations. This ensures that Combine(A, B) produces a different hash than Combine(B, A).
+### 🧮 HashCode Polyfill
+- Only used under .NET Framework
+- Fully deterministic
+- Zero allocations
+- Based on `HashAccumulator`
 
-ThrowHelper: Uses the [CallerArgumentExpression] polyfill (included in this package) to automatically capture variable names, allowing you to write ThrowIfNull(arg) without manually passing nameof(arg).
+### 🛡 Guard Polyfills
+- Provides `[CallerArgumentExpression]` for .NET Framework
+- Modern fluent API on legacy runtimes
 
-📜 Changelog
-Version 1.1.1
+---
 
-Added: Support both net48 and net481 target frameworks for broader compatibility.
+# 📊 Benchmarks Included
 
-Version 1.1.0
+Benchmark results generated to:
 
-Added: ThrowHelper class with ThrowIfNull, ThrowIfNullOrEmpty, and ThrowIfNullOrWhiteSpace.
+```
+BenchmarkDotNet.Artifacts/results/
+```
 
-Added: Polyfill attributes for [CallerArgumentExpression] and [NotNull] to support modern syntax.
+Formats:
+- `.html`
+- `.md`
+- `.csv`
 
-Fixed: Resolved hash distribution issues in HashCode.Combine.
+---
 
-Version 1.0.0
+# 🧾 **Changelog**
 
-Added: Initial release with System.HashCode struct.
+## **Version 1.2.0 (Latest)**  
+✔ Added multi-targeting: `net48; net481; net8.0`  
+✔ Added HashAccumulator64 (64-bit hashing)  
+✔ Added comparer suite  
+✔ Added full Guard API  
+✔ Added fuzz tests  
+✔ Added benchmarks  
+✔ Improved HashCode polyfill  
+
+## Version 1.1.1
+✔ Support for both net48 and net481  
+
+## Version 1.1.0
+✔ ThrowHelper + polyfill attributes  
+
+## Version 1.0.0
+✔ Initial release with HashCode polyfill  
+
+---
+
+# 📄 License
+MIT License.

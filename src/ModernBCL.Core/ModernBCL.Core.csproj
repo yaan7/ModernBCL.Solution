@@ -1,54 +1,71 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
 	<PropertyGroup>
-		<!-- 
-    The Sdk="Microsoft.NET.Sdk" attribute above automatically handles 
-    references, file includes, and the 'pack' target, fixing the MSB4057 error.
-    -->
-
-		<!-- Targeting .NET Framework 4.8.0 and 4.8.1 (the latest legacy framework version) -->
-		<TargetFrameworks>net48;net481</TargetFrameworks>
-
-		<!-- Standard build properties -->
+		<!-- Target frameworks -->
+		<TargetFrameworks>net48;net481;net8.0</TargetFrameworks>
 		<LangVersion>9.0</LangVersion>
 		<Nullable>enable</Nullable>
 		<Deterministic>true</Deterministic>
+
+		<!-- Assembly identity -->
 		<RootNamespace>ModernBCL.Core</RootNamespace>
 		<AssemblyName>ModernBCL.Core</AssemblyName>
-
-		<!-- FIX: Disable automatic AssemblyInfo generation to prevent CS0579 duplicate attribute errors. -->
 		<GenerateAssemblyInfo>false</GenerateAssemblyInfo>
 
-		<!-- === NuGet Package Information === -->
+		<!-- NuGet metadata -->
 		<PackageId>ModernBCL.Core.BLC</PackageId>
-		<Version>1.1.1</Version>
+		<Version>1.2.0</Version>
 		<Authors>livedcode</Authors>
-		<AssemblyVersion>1.1.0.1</AssemblyVersion>
-		<FileVersion>1.1.0.1</FileVersion>
+
+		<Title>ModernBCL.Core.BLC</Title>
 		<Description>
-			A high-performance, order-sensitive polyfill for System.HashCode, enabling modern C# dictionary key efficiency in legacy .NET Framework applications.
-			This package is part of the ModernBCL.Core effort to bridge feature gaps.
+			High-performance polyfills for modern .NET BCL features in legacy
+			.NET Framework 4.8/4.8.1. Includes HashCode polyfill, HashAccumulator,
+			Guard API, CallerArgumentExpression, and more.
 		</Description>
-		<RepositoryUrl>https://github.com/livedcode/ModernBCL.Core.HashCode</RepositoryUrl>
-		<PackageTags>dotnet; net48; polyfill; hashcode; performance; bcl; dictionary; csharp; hashing; low-allocation</PackageTags>
+
+		<!-- NuGet project links -->
+		<PackageProjectUrl>https://github.com/livedcode/ModernBCL.Solution</PackageProjectUrl>
+		<RepositoryUrl>https://github.com/livedcode/ModernBCL.Solution.git</RepositoryUrl>
 		<RepositoryType>git</RepositoryType>
+
+		<!-- License -->
 		<PackageLicenseExpression>MIT</PackageLicenseExpression>
 
-		<!-- Links to files in the repository root (../..) -->
+		<!-- Tags for NuGet SEO -->
+		<PackageTags>
+			polyfill; bcl; dotnet; net48; net481; hashcode; guard;
+			throwhelper; callerargumentexpression; hashing; performance;
+			compatibility; modernization; framework48; framework481;
+		</PackageTags>
+
+		<!-- README -->
 		<PackageReadmeFile>README.md</PackageReadmeFile>
 
-		<!-- Mandatory for publishing symbol files -->
-		<PublishRepositoryUrl>true</PublishRepositoryUrl>
-		<EmbedAllSources>true</EmbedAllSources>
-
-		<!-- Ensure the project creates a NuGet package on build -->
+		<!-- NuGet package generation -->
 		<GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+		<IncludeSymbols>true</IncludeSymbols>
+		<SymbolPackageFormat>snupkg</SymbolPackageFormat>
+
+		<!-- SourceLink -->
+		<PublishRepositoryUrl>true</PublishRepositoryUrl>
+		<EmbedUntrackedSources>true</EmbedUntrackedSources>
+		<ContinuousIntegrationBuild>true</ContinuousIntegrationBuild>
+
+		<PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
+
 	</PropertyGroup>
 
+	<!-- README + LICENSE -->
 	<ItemGroup>
-		<!-- Includes the README.md and LICENSE files from the repository root (../..) -->
 		<None Include="..\..\README.md" Pack="true" PackagePath="\" />
 		<None Include="..\..\LICENSE" Pack="true" PackagePath="\" />
+	</ItemGroup>
+
+	<!-- Dependencies -->
+	<ItemGroup>
+		<PackageReference Include="System.Memory" Version="4.6.3" />
+		<PackageReference Include="Microsoft.SourceLink.GitHub" Version="8.0.0" PrivateAssets="All" />
 	</ItemGroup>
 
 </Project>

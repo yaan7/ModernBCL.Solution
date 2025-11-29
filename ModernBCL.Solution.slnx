@@ -1,7 +1,10 @@
 <Solution>
+  <Folder Name="/benchmarks/">
+    <Project Path="benchmarks/ModernBCL.Benchmarks/ModernBCL.Benchmarks.csproj" />
+  </Folder>
   <Folder Name="/samples/">
-    <Project Path="samples/UsageDemo/HelpUsageDemo.csproj" Id="e2502ea1-7762-4436-aa0d-cb10fb48736a" />
-    <Project Path="ThrowHelperUsageDemo/ThrowHelperUsageDemo.csproj" Id="2004c259-3310-42e3-9cb4-4256424e979a" />
+    <Project Path="samples/GuardSample/GuardSample.csproj" Id="45e9230a-5e39-4586-9ecf-b074db83e405" />
+    <Project Path="samples/HashingSample/HashingSample.csproj" Id="d7364663-bbe2-43ca-92d3-ebe9cc20f7bb" />
   </Folder>
   <Folder Name="/Solution Items/">
     <File Path="CHANGELOG.md" />
@@ -12,6 +15,6 @@
     <Project Path="src/ModernBCL.Core/ModernBCL.Core.csproj" Id="a46e6a77-d009-411a-ab3d-292714e6996f" />
   </Folder>
   <Folder Name="/tests/">
-    <Project Path="tests/ModernBCL.Tests/ModernBCL.Tests.csproj" Id="09693e33-07f9-4617-b190-7a1e4650f689" />
+    <Project Path="tests/ModernBCL.Core.Tests/ModernBCL.Core.Tests.csproj" Id="60c24ad4-890a-40d3-bcc6-d80cff7b2e57" />
   </Folder>
 </Solution>
